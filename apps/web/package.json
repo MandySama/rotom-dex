@@ -4,8 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "run-p -s dev:vite dev:mock",
+    "dev:vite": "vite",
+    "dev:mock": "nitro dev",
+    "build": "run-p -s build:vite build:mock",
+    "build:vite": "vite build",
+    "build:mock": "nitro build",
+    "mock:start": "node .output/server/index.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,13 +28,13 @@
     "@vant/auto-import-resolver": "^1.3.0",
     "@vitejs/plugin-vue": "^6.0.8",
     "nitro": "3.0.260903-beta",
-    "npm-run-all2": "^9.0.3",
+    "npm-run-all2": "catalog:",
     "sass": "^1.104.1",
     "tailwindcss": "^4.3.3",
     "unplugin-auto-import": "^21.1.0",
     "unplugin-icons": "^24.0.0",
     "unplugin-vue-components": "^32.1.0",
     "vite": "^8.2.2",
-    "vite-plugin-vue-devtools": "^8.2.1",
-  },
+    "vite-plugin-vue-devtools": "^8.2.1"
+  }
 }
