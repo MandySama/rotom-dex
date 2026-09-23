@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Rotom Dex</string>
+    <string name="title_activity_main">Rotom Dex</string>
+    <string name="package_name">top.totodile.rotom</string>
+    <string name="custom_url_scheme">top.totodile.rotom</string>
+</resources>
