@@ -4,29 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "dev": "pnpm -s dev:web",
+    "dev:web": "pnpm -s -F @rotom/web dev",
+    "build": "pnpm -s build:web",
+    "build:web": "pnpm -s -F @rotom/web build",
+    "preview": "pnpm -s -F @rotom/web preview",
     "lint": "run-s \"lint:*\"",
-    "lint:oxlint": "oxlint . --fix",
-    "lint:eslint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
-  },
-  "dependencies": {
-    "@iconify/vue": "^5.0.3",
-    "axios": "^1.20.0",
-    "h3": "2.0.1-rc.32",
-    "nitro": "3.0.260903-beta",
-    "pinia": "^4.0.3",
-    "pinia-plugin-persistedstate": "^4.7.1",
-    "vant": "^4.10.2",
-    "vue": "^3.5.42",
-    "vue-router": "^5.3.1"
+    "lint:oxlint": "oxlint apps/web --fix",
+    "lint:eslint": "eslint apps/web --fix --cache",
+    "format": "prettier --write --experimental-cli apps/web/src/"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@tailwindcss/vite": "^4.3.3",
-    "@vant/auto-import-resolver": "^1.3.0",
     "@vitejs/plugin-vue": "^6.0.8",
     "eslint": "^10.10.0",
     "eslint-config-prettier": "^10.1.8",
@@ -38,16 +27,10 @@
     "oxlint": "~1.82.0",
     "prettier": "3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "sass": "^1.104.1",
-    "tailwindcss": "^4.3.3",
-    "unplugin-auto-import": "^21.1.0",
-    "unplugin-icons": "^24.0.0",
-    "unplugin-vue-components": "^32.1.0",
-    "vite": "^8.2.2",
-    "vite-plugin-vue-devtools": "^8.2.1",
     "vue-eslint-parser": "^10.4.1"
   },
   "engines": {
     "node": "^22.18.0 || >=24.12.0"
-  }
+  },
+  "packageManager": "pnpm@11.9.0"
 }
