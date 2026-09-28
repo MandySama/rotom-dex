@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "pnpm -s dev:web",
     "dev:web": "pnpm -s -F @rotom/web dev",
+    "dev:capacitor": "pnpm -s -F @rotom/capacitor dev",
     "build": "pnpm -s build:web",
     "build:web": "pnpm -s -F @rotom/web build",
+    "build:capacitor": "pnpm -s -F @rotom/capacitor build",
     "preview": "pnpm -s -F @rotom/web preview",
     "lint": "run-s \"lint:*\"",
     "lint:oxlint": "oxlint apps/web --fix",

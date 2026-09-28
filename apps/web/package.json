@@ -24,9 +24,11 @@
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
+    "@iconify-json/lucide": "^1.2.118",
     "@tailwindcss/vite": "^4.3.3",
     "@vant/auto-import-resolver": "^1.3.0",
     "@vitejs/plugin-vue": "^6.0.8",
+    "@vitejs/plugin-vue-jsx": "^5.1.6",
     "nitro": "3.0.260903-beta",
     "npm-run-all2": "catalog:",
     "sass": "^1.104.1",

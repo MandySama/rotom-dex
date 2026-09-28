@@ -4,6 +4,7 @@ import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
 import pluginOxlint from 'eslint-plugin-oxlint'
 import skipFormatting from 'eslint-config-prettier/flat'
+import autoImport from './apps/web/.eslintrc-auto-import.js'
 import pluginPrettier from 'eslint-plugin-prettier'
 
 export default defineConfig([
@@ -16,8 +17,15 @@ export default defineConfig([
 
   {
     languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: {
         ...globals.browser,
+        ...autoImport.globals,
+        ...globals.node,
       },
     },
   },
