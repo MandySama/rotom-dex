@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "dev": "pnpm -s -F @rotom/web build:vite --mode dev-capacitor && pnpm -F @rotom/web build:mock && run-p mock:start android:start",
+    "build": "pnpm -s -F @rotom/web build && cap sync android && android\\gradlew.bat -p android assembleDebug",
+    "mock:start": "pnpm -F @rotom/web mock:start",
+    "android:start": "cap run android"
+  },
   "dependencies": {
     "@capacitor/android": "^8.5.2",
     "@capacitor/core": "^8.5.2"
