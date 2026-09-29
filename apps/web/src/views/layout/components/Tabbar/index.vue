@@ -1,5 +1,5 @@
 <script setup lang="jsx">
-const activeTab = ref('图鉴')
+const activeTab = ref('')
 
 const tabList = [
   {
@@ -28,6 +28,12 @@ const tabList = [
     path: '/about',
   },
 ]
+
+const route = useRoute()
+
+onMounted(() => {
+  activeTab.value = tabList.find((item) => item.path === route.path).title
+})
 </script>
 
 <template>
