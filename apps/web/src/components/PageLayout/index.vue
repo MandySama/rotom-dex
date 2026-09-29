@@ -16,11 +16,18 @@ defineProps({
     default: true,
   },
 })
+
+defineEmits(['click-navbar-left'])
 </script>
 
 <template>
   <div class="page-layout">
-    <navbar v-if="navbar" :show-left="navbarLeft" :show-right="navbarRight">
+    <navbar
+      v-if="navbar"
+      :show-left="navbarLeft"
+      :show-right="navbarRight"
+      @click-left="$emit('click-navbar-left')"
+    >
       <template v-if="$slots['navbar-left']" #left>
         <slot name="navbar-left" />
       </template>
