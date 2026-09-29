@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   showLeft: {
     type: Boolean,
     default: true,
@@ -8,31 +8,15 @@ defineProps({
     type: Boolean,
     default: true,
   },
-  moreActions: {
+  moreOptions: {
     type: Array,
-    default: () => [
-      { text: '高级查询' },
-      { text: '地区图鉴' },
-      { text: '第一世代' },
-      { text: '第二世代' },
-      { text: '第三世代' },
-      { text: '第四世代' },
-      { text: '第五世代' },
-      { text: '第六世代' },
-      { text: '第七世代' },
-      { text: '第八世代' },
-      { text: '第九世代' },
-      { text: '第十世代' },
-      { text: '传说宝可梦' },
-      { text: '幻之宝可梦' },
-      { text: '究极异兽' },
-      { text: '超级进化' },
-      { text: '超极巨化' },
-    ],
+    default: () => [],
   },
 })
 
-defineEmits(['click-left'])
+const slots = useSlots()
+
+const emits = defineEmits(['click-left', 'select-more'])
 
 const route = useRoute()
 
@@ -41,14 +25,23 @@ const title = computed(() => {
 })
 
 const showMore = ref(false)
+
+const onClickRight = () => {
+  if (!slots.right && props.moreOptions.length) {
+    showMore.value = true
+  }
+}
+
+const onSelectMore = () => {
+  showMore.value = false
+  emits('select-more')
+}
 </script>
 
 <template>
-  <van-nav-bar :title @click-left="$emit('click-left')" @click-right="showMore = true">
+  <van-nav-bar :title @click-left="$emit('click-left')" @click-right="onClickRight">
     <template v-if="showLeft" #left>
-      <slot name="left">
-        <i-lucide-arrow-up-down class="size-5" />
-      </slot>
+      <i-lucide-arrow-up-down class="size-5" />
     </template>
     <template v-if="showRight" #right>
       <slot name="right">
@@ -66,11 +59,12 @@ const showMore = ref(false)
   >
     <van-cell-group>
       <van-cell
-        v-for="item in moreActions"
+        v-for="item in moreOptions"
         :key="item.text"
         :title="item.text"
         :border="false"
         clickable
+        @click="onSelectMore"
       ></van-cell>
     </van-cell-group>
   </van-popup>

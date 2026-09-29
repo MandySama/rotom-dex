@@ -15,9 +15,13 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  navbarMoreOptions: {
+    type: Array,
+    default: () => [],
+  },
 })
 
-defineEmits(['click-navbar-left'])
+defineEmits(['click-navbar-left', 'select-navbar-more'])
 </script>
 
 <template>
@@ -26,11 +30,10 @@ defineEmits(['click-navbar-left'])
       v-if="navbar"
       :show-left="navbarLeft"
       :show-right="navbarRight"
+      :more-options="navbarMoreOptions"
       @click-left="$emit('click-navbar-left')"
+      @select-more="$emit('select-navbar-more')"
     >
-      <template v-if="$slots['navbar-left']" #left>
-        <slot name="navbar-left" />
-      </template>
       <template v-if="$slots['navbar-right']" #right>
         <slot name="navbar-right" />
       </template>
