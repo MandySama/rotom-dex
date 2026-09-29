@@ -58,10 +58,11 @@ const showMore = ref(false)
   </van-nav-bar>
   <van-popup
     v-model:show="showMore"
-    class="top-2! right-0.5! left-auto! max-h-[calc(100dvh-16px)]! w-40! transform-none! shadow-[0_4px_12px_0_rgb(0_0_0/16%)]"
+    class="top-0! left-auto! max-h-dvh! w-40! transform-none! shadow-[0_4px_12px_0_rgb(0_0_0/16%)]"
     overlay-class="bg-transparent!"
     :duration="0"
     round
+    destroy-on-close
   >
     <van-cell-group>
       <van-cell

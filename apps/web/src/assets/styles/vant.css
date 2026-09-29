@@ -32,6 +32,7 @@
 
   .van-cell {
     --van-cell-vertical-padding: 12px;
+    height: 48px;
   }
 }
 
