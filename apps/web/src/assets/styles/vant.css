@@ -12,16 +12,26 @@
 .van-tabbar {
   --van-tabbar-height: 56px;
   --van-tabbar-item-active-color: var(--van-text-color);
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
 
   .van-tabbar-item:not(.van-tabbar-item--active) .van-tabbar-item__icon {
-    filter: grayscale(60%);
+    filter: grayscale(0.6);
   }
 
   .van-tabbar-item:not(.van-tabbar-item--active) .van-tabbar-item__text {
     opacity: 0.6;
   }
+}
 
-  .van-tabbar-item__text {
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+.van-popup {
+  --van-popup-round-radius: 8px;
+}
+
+.van-cell-group {
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+
+  .van-cell {
+    --van-cell-vertical-padding: 12px;
   }
 }
+

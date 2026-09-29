@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-export const tabRouteList = [
+export const tabRoutes = [
   {
     path: '/pokemon',
     component: () => import('@/views/pokemon/index.vue'),
@@ -35,7 +35,7 @@ const router = createRouter({
       path: '/',
       redirect: '/pokemon',
     },
-    ...tabRouteList,
+    ...tabRoutes,
   ],
 })
 
