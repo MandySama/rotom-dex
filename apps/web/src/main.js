@@ -5,12 +5,16 @@ import { createPinia } from 'pinia'
 import persist from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'
-import router from './router/index.js'
+import router from './router'
+
+import PageLayout from './components/PageLayout/index.vue'
 
 const app = createApp(App)
 
 app.use(createPinia().use(persist))
 app.use(router)
+
+app.component('PageLayout', PageLayout)
 
 await router.isReady()
 app.mount('#app')
