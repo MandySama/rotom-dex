@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup></script>
 
 <template>
-  <page-layout></page-layout>
+  <page-layout :navbar-left="false">
+    <template #navbar-right>
+      <span>整理</span>
+    </template>
+  </page-layout>
 </template>
 
 <style scoped></style>

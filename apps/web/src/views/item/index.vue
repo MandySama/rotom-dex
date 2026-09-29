@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
+<script setup></script>
 
 <template>
-  <page-layout></page-layout>
+  <page-layout :navbar-left="false"></page-layout>
 </template>
 
 <style scoped></style>
