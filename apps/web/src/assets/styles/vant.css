@@ -1,11 +1,11 @@
 .van-nav-bar {
   --van-nav-bar-height: 48px;
-  --van-nav-bar-icon-color: var(--van-text-color);
   line-height: 24px !important;
+  color: var(--van-text-color);
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
 
   .van-nav-bar__title {
     font-weight: 400;
-    font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   }
 }
 

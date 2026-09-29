@@ -1,4 +1,15 @@
 <script setup>
+defineProps({
+  showLeft: {
+    type: Boolean,
+    default: true,
+  },
+  showRight: {
+    type: Boolean,
+    default: true,
+  },
+})
+
 const route = useRoute()
 
 const title = computed(() => {
@@ -8,11 +19,15 @@ const title = computed(() => {
 
 <template>
   <van-nav-bar :title>
-    <template #left>
-      <i-lucide-arrow-up-down class="size-5" />
+    <template v-if="showLeft" #left>
+      <slot name="left">
+        <i-lucide-arrow-up-down class="size-5" />
+      </slot>
     </template>
-    <template #right>
-      <i-lucide-ellipsis class="size-5" />
+    <template v-if="showRight" #right>
+      <slot name="right">
+        <i-lucide-ellipsis class="size-5" />
+      </slot>
     </template>
   </van-nav-bar>
 </template>
