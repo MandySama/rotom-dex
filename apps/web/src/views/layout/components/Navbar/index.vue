@@ -9,10 +9,10 @@ const title = computed(() => {
 <template>
   <van-nav-bar :title>
     <template #left>
-      <i-lucide-arrow-up-down />
+      <i-lucide-arrow-up-down class="size-5" />
     </template>
     <template #right>
-      <i-lucide-ellipsis />
+      <i-lucide-ellipsis class="size-5" />
     </template>
   </van-nav-bar>
 </template>
