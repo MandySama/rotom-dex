@@ -27,6 +27,7 @@ export default defineConfig({
       },
     }),
     Components({
+      include: [/\.vue/, /\.jsx/],
       resolvers: [
         VantResolver(),
         IconsResolver({
