@@ -26,15 +26,54 @@ const title = computed(() => {
 
 const showMore = ref(false)
 
+const activeScopes = ref([])
+
+const activeFilters = ref([])
+
+const activeSort = ref('')
+
 const onClickRight = () => {
   if (!slots.right && props.moreOptions.length) {
     showMore.value = true
   }
 }
 
-const onSelectMore = () => {
+const isActiveOption = (item) => {
+  switch (item.type) {
+    case 'scope':
+      return activeScopes.value.includes(item.value)
+    case 'filter':
+      return activeFilters.value.includes(item.value)
+    case 'sort':
+      return activeSort.value === item.value
+    default:
+      return false
+  }
+}
+
+const onSelectMore = (item) => {
+  console.log(item)
+  switch (item.type) {
+    case 'scope':
+      activeScopes.value = activeScopes.value.includes(item.value)
+        ? activeScopes.value.filter((value) => value !== item.value)
+        : [...activeScopes.value, item.value]
+      break
+    case 'filter':
+      activeFilters.value = activeFilters.value.includes(item.value)
+        ? activeFilters.value.filter((value) => value !== item.value)
+        : [...activeFilters.value, item.value]
+      break
+    case 'sort':
+      activeSort.value = activeSort.value === item.value ? '' : item.value
+      break
+  }
   showMore.value = false
-  emits('select-more')
+  emits('select-more', {
+    scopes: [...activeScopes.value],
+    filters: [...activeFilters.value],
+    sort: activeSort.value,
+  })
 }
 </script>
 
@@ -61,11 +100,19 @@ const onSelectMore = () => {
       <van-cell
         v-for="item in moreOptions"
         :key="item.text"
+        :class="isActiveOption(item) && 'text-primary!'"
         :title="item.text"
         :border="false"
         clickable
-        @click="onSelectMore"
-      ></van-cell>
+        @click="onSelectMore(item)"
+      >
+        <template #title>
+          <span>{{ item.text }}</span>
+        </template>
+        <template #right-icon>
+          <i-lucide-check v-if="isActiveOption(item)" class="size-4" />
+        </template>
+      </van-cell>
     </van-cell-group>
   </van-popup>
 </template>

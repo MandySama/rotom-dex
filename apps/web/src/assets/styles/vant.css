@@ -33,6 +33,10 @@
   .van-cell {
     --van-cell-vertical-padding: 12px;
     height: 48px;
+    align-items: center;
   }
 }
 
+.van-search {
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+}
