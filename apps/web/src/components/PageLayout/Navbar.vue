@@ -20,9 +20,7 @@ const emits = defineEmits(['click-left', 'select-more'])
 
 const route = useRoute()
 
-const title = computed(() => {
-  return route.meta.title
-})
+const title = route.meta.title
 
 const showMore = ref(false)
 
@@ -46,13 +44,10 @@ const isActiveOption = (item) => {
       return activeFilters.value.includes(item.value)
     case 'sort':
       return activeSort.value === item.value
-    default:
-      return false
   }
 }
 
 const onSelectMore = (item) => {
-  console.log(item)
   switch (item.type) {
     case 'scope':
       activeScopes.value = activeScopes.value.includes(item.value)
@@ -88,33 +83,29 @@ const onSelectMore = (item) => {
       </slot>
     </template>
   </van-nav-bar>
-  <van-popup
-    v-model:show="showMore"
-    class="top-0! left-auto! max-h-dvh! w-40! transform-none! shadow-[0_4px_12px_0_rgb(0_0_0/16%)]"
-    overlay-class="bg-transparent!"
-    :duration="0"
-    round
-    destroy-on-close
-  >
-    <van-cell-group>
-      <van-cell
-        v-for="item in moreOptions"
-        :key="item.text"
-        :class="isActiveOption(item) && 'text-primary!'"
-        :title="item.text"
-        :border="false"
-        clickable
-        @click="onSelectMore(item)"
+  <teleport to="body">
+    <div v-if="showMore" class="fixed inset-0 z-999 bg-transparent" @click="showMore = false">
+      <div
+        class="fixed top-0 right-0 z-1001 max-h-dvh w-40 overflow-y-auto rounded-lg shadow-[0_4px_12px_0_rgb(0_0_0/16%)]"
       >
-        <template #title>
-          <span>{{ item.text }}</span>
-        </template>
-        <template #right-icon>
-          <i-lucide-check v-if="isActiveOption(item)" class="size-4" />
-        </template>
-      </van-cell>
-    </van-cell-group>
-  </van-popup>
+        <van-cell-group>
+          <van-cell
+            v-for="item in moreOptions"
+            :key="item.text"
+            :class="isActiveOption(item) && 'text-primary!'"
+            :title="item.text"
+            :border="false"
+            clickable
+            @click="onSelectMore(item)"
+          >
+            <template v-if="isActiveOption(item)" #right-icon>
+              <i-lucide-check class="size-4" />
+            </template>
+          </van-cell>
+        </van-cell-group>
+      </div>
+    </div>
+  </teleport>
 </template>
 
 <style scoped></style>
