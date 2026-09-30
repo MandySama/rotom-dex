@@ -7,7 +7,8 @@
     "dev": "pnpm -s -F @rotom/web build:vite --mode dev-capacitor && pnpm -F @rotom/web build:mock && run-p mock:start android:start",
     "build": "pnpm -s -F @rotom/web build && cap sync android && android\\gradlew.bat -p android assembleDebug",
     "mock:start": "pnpm -F @rotom/web mock:start",
-    "android:start": "cap run android"
+    "android:start": "cap run android",
+    "icon": "capacitor-assets generate --android"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.2",
@@ -15,6 +16,7 @@
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/cli": "^8.5.2"
+    "@capacitor/cli": "^8.5.2",
+    "npm-run-all2": "catalog:"
   }
 }
