@@ -1,4 +1,7 @@
 <script setup>
+import request from '@/utils/request'
+import { useVirtualList } from '@vueuse/core'
+
 const moreOptions = [
   { text: '第一世代', type: 'scope', value: 1 },
   { text: '第二世代', type: 'scope', value: 2 },
@@ -33,16 +36,61 @@ const moreOptions = [
 ]
 
 const keyword = ref('')
+
+const pokemonList = ref([])
+
+const getPokemonImage = (pokemon) => {
+  const imageName = pokemon.picName || `a${pokemon.nationalCode}`
+  return `${import.meta.env.BASE_URL}images/pokemon/${imageName}.png`
+}
+
+const { list, containerProps, wrapperProps } = useVirtualList(pokemonList, {
+  itemHeight: 102,
+  overscan: 6,
+})
+
+onMounted(async () => {
+  pokemonList.value = await request.get('/pokemon')
+  pokemonList.value = pokemonList.value.slice(0, 151)
+})
 </script>
 
 <template>
-  <page-layout :navbar-more-options="moreOptions">
+  <page-layout class="pokemon-page" :navbar-more-options="moreOptions">
     <van-search
       v-model="keyword"
       placeholder="输入全国编号/名称/属性(支持双属性)"
       :clearable="false"
       left-icon=""
     ></van-search>
+    <div
+      v-bind="containerProps"
+      class="h-[calc(100dvh-148px)] scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
+    >
+      <div v-bind="wrapperProps" class="flex flex-col gap-y-1.5">
+        <div v-for="{ data: pokemon, index } in list" :key="index">
+          <div
+            class="border-border bg-background flex h-24 cursor-pointer items-center gap-2 rounded-md border pl-1"
+          >
+            <van-image class="size-22" :src="getPokemonImage(pokemon)"></van-image>
+            <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-[18px]">
+              <div class="flex gap-x-2">
+                <span>编号:</span>
+                <span>NO.{{ pokemon.nationalCode }}</span>
+              </div>
+              <div class="flex gap-x-2">
+                <span>名称:</span>
+                <span>{{ pokemon.cName }}</span>
+              </div>
+              <div class="flex gap-x-2">
+                <span>属性:</span>
+                <span>{{ pokemon.shuxing[0] }} {{ pokemon.shuxing[1] ?? '' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </page-layout>
 </template>
 

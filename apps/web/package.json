@@ -7,7 +7,7 @@
     "dev": "run-p -s dev:vite dev:mock",
     "dev:vite": "vite",
     "dev:mock": "nitro dev",
-    "build": "run-p -s build:vite build:mock",
+    "build": "run-s -s build:vite build:mock",
     "build:vite": "vite build",
     "build:mock": "nitro build",
     "mock:start": "node .output/server/index.mjs",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@iconify/vue": "^5.0.3",
+    "@vueuse/core": "^15.0.0",
     "axios": "^1.20.0",
     "h3": "2.0.1-rc.32",
     "pinia": "^4.0.3",

@@ -4,5 +4,6 @@
   --color-background: var(--background);
   --color-border: var(--border);
   --color-primary: var(--primary);
+  --color-foreground: var(--foreground);
   --color-muted: var(--muted);
 }
