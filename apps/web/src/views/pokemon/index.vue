@@ -20,8 +20,8 @@ const moreOptions = [
   { text: '超级进化', type: 'filter', value: 'mega' },
   { text: '超极巨化', type: 'filter', value: 'gigantamax' },
   { text: '阿罗拉的样子', type: 'filter', value: 'alola' },
-  { text: '伽勒尔的样子', type: 'filter', value: 'galaria' },
-  { text: '洗翠的样子', type: 'filter', value: 'hisuia' },
+  { text: '伽勒尔的样子', type: 'filter', value: 'galar' },
+  { text: '洗翠的样子', type: 'filter', value: 'hisui' },
   { text: '帕底亚的样子', type: 'filter', value: 'paldea' },
   { text: 'HP排序', type: 'sort', value: 'hp' },
   { text: '攻击排序', type: 'sort', value: 'attack' },
@@ -31,11 +31,18 @@ const moreOptions = [
   { text: '速度排序', type: 'sort', value: 'speed' },
   { text: '种族值排序', type: 'sort', value: 'base_stats' },
 ]
+
+const keyword = ref('')
 </script>
 
 <template>
   <page-layout :navbar-more-options="moreOptions">
-    <!-- <van-search shape="round" placeholder="输入全国编号/名称/属性(支持双属性)"></van-search> -->
+    <van-search
+      v-model="keyword"
+      placeholder="输入全国编号/名称/属性(支持双属性)"
+      :clearable="false"
+      left-icon=""
+    ></van-search>
   </page-layout>
 </template>
 

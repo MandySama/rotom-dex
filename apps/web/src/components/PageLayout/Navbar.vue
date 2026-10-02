@@ -4,10 +4,6 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  showRight: {
-    type: Boolean,
-    default: true,
-  },
   moreOptions: {
     type: Array,
     default: () => [],
@@ -77,7 +73,7 @@ const onSelectMore = (item) => {
     <template v-if="showLeft" #left>
       <i-lucide-arrow-up-down class="size-5" />
     </template>
-    <template v-if="showRight" #right>
+    <template #right>
       <slot name="right">
         <i-lucide-ellipsis class="size-5" />
       </slot>
@@ -86,7 +82,7 @@ const onSelectMore = (item) => {
   <teleport to="body">
     <div v-if="showMore" class="fixed inset-0 z-999 bg-transparent" @click="showMore = false">
       <div
-        class="fixed top-0 right-0 z-1001 max-h-dvh w-40 overflow-y-auto rounded-lg shadow-[0_4px_12px_0_rgb(0_0_0/16%)]"
+        class="fixed top-0 right-0.5 z-1001 max-h-[calc(100dvh-2px)] w-40 overflow-y-auto rounded-lg shadow-[0_4px_12px_0_rgb(0_0_0/16%)]"
       >
         <van-cell-group>
           <van-cell
@@ -94,7 +90,6 @@ const onSelectMore = (item) => {
             :key="item.text"
             :class="isActiveOption(item) && 'text-primary!'"
             :title="item.text"
-            :border="false"
             clickable
             @click="onSelectMore(item)"
           >
