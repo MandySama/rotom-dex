@@ -23,10 +23,6 @@
   }
 }
 
-.van-popup {
-  --van-popup-round-radius: 8px;
-}
-
 .van-cell-group {
   font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
 
@@ -34,9 +30,29 @@
     --van-cell-vertical-padding: 12px;
     height: 48px;
     align-items: center;
+
+    &:after {
+      border-bottom-style: none;
+    }
   }
 }
 
 .van-search {
+  --van-search-padding: 8px;
+  --van-search-background: var(--muted);
+  --van-search-content-background: var(--background);
+  --van-search-input-height: 32px;
   font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+
+  .van-search__content {
+    padding-left: 0;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+
+    input,
+    input::placeholder {
+      text-align: center;
+      font-size: 12px;
+    }
+  }
 }

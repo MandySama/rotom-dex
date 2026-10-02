@@ -1,3 +1,6 @@
 :root {
+  --background: #fff;
+  --border: #ebedf0;
   --primary: #1989fa;
+  --muted: #f7f8fa;
 }
