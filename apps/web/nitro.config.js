@@ -8,4 +8,18 @@ export default defineConfig({
       cors: true,
     },
   },
+  prerender: {
+    routes: ['/pokemon'],
+  },
+  output: {
+    publicDir: './dist/data',
+  },
+  publicAssets: [{ dir: './public', ignore: ['**'] }],
+  hooks: {
+    'prerender:generate'(route) {
+      if (route.route === '/pokemon') {
+        route.fileName = 'pokemon.json'
+      }
+    },
+  },
 })
