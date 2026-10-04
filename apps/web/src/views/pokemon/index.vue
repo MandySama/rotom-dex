@@ -53,7 +53,7 @@ const getImage = (pokemon) => {
 }
 
 const getSortText = () => {
-  return moreOptions.find((option) => option.value === selectedSort.value).text
+  return moreOptions.find((option) => option.value === selectedSort.value).text.replace('排序', '')
 }
 
 const getSortValue = (pokemon) => {
@@ -63,6 +63,7 @@ const getSortValue = (pokemon) => {
 }
 
 const handleSearch = () => {
+  const query = keyword.value.trim().replace(/\s+/, ' ')
   searchResults.value = pokemonList.value.filter((pokemon) => {
     if (selectedScopes.value.length && !selectedScopes.value.includes(pokemon.sidai)) return false
     if (
@@ -72,7 +73,14 @@ const handleSearch = () => {
     ) {
       return false
     }
-    if (keyword.value && !pokemon.cName.includes(keyword.value)) return false
+    if (
+      query &&
+      Number(pokemon.nationalCode) !== Number(query) &&
+      !pokemon.cName.includes(query) &&
+      !pokemon.shuxing.join(' ').includes(query)
+    ) {
+      return false
+    }
     return true
   })
   if (selectedSort.value !== undefined) {
