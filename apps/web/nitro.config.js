@@ -9,7 +9,7 @@ export default defineConfig({
     },
   },
   prerender: {
-    routes: ['/pokemon'],
+    routes: ['/pokemon', '/item'],
   },
   output: {
     publicDir: './dist/data',

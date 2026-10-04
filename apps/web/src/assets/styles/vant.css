@@ -53,6 +53,10 @@
     border-radius: 16px;
     box-shadow: inset 0 0 0 1px var(--border);
 
+    .van-search__field {
+      padding-right: 0;
+    }
+
     input,
     input::placeholder {
       text-align: center;

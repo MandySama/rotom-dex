@@ -50,25 +50,6 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
 
 const scrollTop = ref(0)
 
-const onScroll = (event) => {
-  scrollTop.value = event.currentTarget.scrollTop
-}
-
-const getImage = (pokemon) => {
-  const imageName = pokemon.picName || `a${pokemon.nationalCode}`
-  return `/images/pokemon/${imageName}.png`
-}
-
-const getSortText = () => {
-  return moreOptions.find((option) => option.value === selectedSort.value).text.replace('排序', '')
-}
-
-const getSortValue = (pokemon) => {
-  return selectedSort.value === -1
-    ? pokemon.zhongzuzhi.reduce((sum, stat) => sum + stat, 0)
-    : pokemon.zhongzuzhi[selectedSort.value]
-}
-
 const handleSearch = () => {
   const query = keyword.value.trim().replace(/\s+/, ' ')
   searchResults.value = pokemonList.value.filter((pokemon) => {
@@ -96,13 +77,11 @@ const handleSearch = () => {
   if (selectedSort.value !== undefined) {
     searchResults.value.sort((a, b) => getSortValue(b) - getSortValue(a))
   }
-  scrollTop.value = 0
   scrollTo(0)
 }
 
 const onClickLeft = () => {
   searchResults.value = searchResults.value.reverse()
-  scrollTop.value = 0
   scrollTo(0)
 }
 
@@ -113,9 +92,28 @@ const onSelectMore = ({ scopes, filters, sort }) => {
   handleSearch()
 }
 
+const onScroll = (event) => {
+  scrollTop.value = event.currentTarget.scrollTop
+}
+
+const getImage = (pokemon) => {
+  const imageName = pokemon.picName || `a${pokemon.nationalCode}`
+  return `/images/pokemon/${imageName}.png`
+}
+
+const getSortText = () => {
+  return moreOptions.find((option) => option.value === selectedSort.value).text.replace('排序', '')
+}
+
+const getSortValue = (pokemon) => {
+  return selectedSort.value === -1
+    ? pokemon.zhongzuzhi.reduce((sum, stat) => sum + stat, 0)
+    : pokemon.zhongzuzhi[selectedSort.value]
+}
+
 onMounted(async () => {
   pokemonList.value = await request.get('/pokemon')
-  searchResults.value = pokemonList.value
+  searchResults.value = [...pokemonList.value]
 })
 
 onActivated(() => {
@@ -143,30 +141,30 @@ onActivated(() => {
       class="h-[calc(100dvh-148px)] scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
     >
       <div v-bind="wrapperProps" class="flex flex-col gap-y-1.5">
-        <div v-for="{ data: pokemon, index } in list" :key="index">
-          <div
-            class="border-border bg-background flex h-24 cursor-pointer items-center gap-2 rounded-md border pl-1"
-          >
-            <van-image class="size-22" :src="getImage(pokemon)"></van-image>
-            <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-[18px]">
-              <div class="flex gap-x-2">
-                <span>编号:</span>
-                <span>NO.{{ pokemon.nationalCode }}</span>
-              </div>
-              <div class="flex gap-x-2">
-                <span>名称:</span>
-                <span>{{ pokemon.cName }}</span>
-              </div>
-              <div class="flex gap-x-2">
-                <span>属性:</span>
-                <span>{{ pokemon.shuxing[0] }} {{ pokemon.shuxing[1] ?? '' }}</span>
-              </div>
-              <div v-if="selectedSort !== undefined" class="text-primary flex gap-x-2">
-                <span>{{ getSortText() }}:</span>
-                <span>
-                  {{ getSortValue(pokemon) }}
-                </span>
-              </div>
+        <div
+          v-for="{ data: pokemon, index } in list"
+          :key="index"
+          class="border-border bg-background flex h-24 cursor-pointer items-center gap-2 rounded-md border pl-1"
+        >
+          <van-image class="size-22" :src="getImage(pokemon)"></van-image>
+          <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-[18px]">
+            <div class="flex gap-x-2">
+              <span>编号:</span>
+              <span>NO.{{ pokemon.nationalCode }}</span>
+            </div>
+            <div class="flex gap-x-2">
+              <span>名称:</span>
+              <span>{{ pokemon.cName }}</span>
+            </div>
+            <div class="flex gap-x-2">
+              <span>属性:</span>
+              <span>{{ pokemon.shuxing[0] }} {{ pokemon.shuxing[1] ?? '' }}</span>
+            </div>
+            <div v-if="selectedSort !== undefined" class="text-primary flex gap-x-2">
+              <span>{{ getSortText() }}:</span>
+              <span>
+                {{ getSortValue(pokemon) }}
+              </span>
             </div>
           </div>
         </div>
