@@ -13,15 +13,15 @@ onMounted(() => {
 <template>
   <van-tabbar v-model="activeTab">
     <van-tabbar-item
-      v-for="item in tabRoutes"
-      :key="item.meta.name"
-      :name="item.meta.name"
-      :to="item.path"
+      v-for="route in tabRoutes"
+      :key="route.meta.name"
+      :name="route.meta.name"
+      :to="route.path"
     >
       <template #icon>
-        <component class="size-6" :is="item.meta.icon" />
+        <component class="size-6" :is="route.meta.icon" />
       </template>
-      <span>{{ item.meta.name }}</span>
+      <span>{{ route.meta.name }}</span>
     </van-tabbar-item>
   </van-tabbar>
 </template>

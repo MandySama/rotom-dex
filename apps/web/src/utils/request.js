@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: import.meta.env.DEV ? '/api' : `${import.meta.env.BASE_URL}data/`,
+  baseURL: import.meta.env.DEV ? '/api' : `/data/`,
 })
 instance.interceptors.request.use((config) => {
   if (import.meta.env.PROD && config.method === 'get') {

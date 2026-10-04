@@ -20,11 +20,9 @@ const title = route.meta.title
 
 const showMore = ref(false)
 
-const activeScopes = ref([])
-
-const activeFilters = ref([])
-
-const activeSort = ref('')
+const selectedScopes = ref([])
+const selectedFilters = ref([])
+const selectedSort = ref('')
 
 const onClickRight = () => {
   if (!slots.right && props.moreOptions.length) {
@@ -32,38 +30,38 @@ const onClickRight = () => {
   }
 }
 
-const isActiveOption = (item) => {
+const isSelectedOption = (item) => {
   switch (item.type) {
     case 'scope':
-      return activeScopes.value.includes(item.value)
+      return selectedScopes.value.includes(item.value)
     case 'filter':
-      return activeFilters.value.includes(item.value)
+      return selectedFilters.value.includes(item.value)
     case 'sort':
-      return activeSort.value === item.value
+      return selectedSort.value === item.value
   }
 }
 
 const onSelectMore = (item) => {
   switch (item.type) {
     case 'scope':
-      activeScopes.value = activeScopes.value.includes(item.value)
-        ? activeScopes.value.filter((value) => value !== item.value)
-        : [...activeScopes.value, item.value]
+      selectedScopes.value = selectedScopes.value.includes(item.value)
+        ? selectedScopes.value.filter((value) => value !== item.value)
+        : [...selectedScopes.value, item.value]
       break
     case 'filter':
-      activeFilters.value = activeFilters.value.includes(item.value)
-        ? activeFilters.value.filter((value) => value !== item.value)
-        : [...activeFilters.value, item.value]
+      selectedFilters.value = selectedFilters.value.includes(item.value)
+        ? selectedFilters.value.filter((value) => value !== item.value)
+        : [...selectedFilters.value, item.value]
       break
     case 'sort':
-      activeSort.value = activeSort.value === item.value ? '' : item.value
+      selectedSort.value = selectedSort.value === item.value ? '' : item.value
       break
   }
   showMore.value = false
   emits('select-more', {
-    scopes: [...activeScopes.value],
-    filters: [...activeFilters.value],
-    sort: activeSort.value,
+    scopes: selectedScopes.value,
+    filters: selectedFilters.value,
+    sort: selectedSort.value,
   })
 }
 </script>
@@ -86,14 +84,14 @@ const onSelectMore = (item) => {
       >
         <van-cell-group>
           <van-cell
-            v-for="item in moreOptions"
-            :key="item.text"
-            :class="isActiveOption(item) && 'text-primary!'"
-            :title="item.text"
+            v-for="option in moreOptions"
+            :key="option.text"
+            :class="isSelectedOption(option) && 'text-primary!'"
+            :title="option.text"
             clickable
-            @click="onSelectMore(item)"
+            @click="onSelectMore(option)"
           >
-            <template v-if="isActiveOption(item)" #right-icon>
+            <template v-if="isSelectedOption(option)" #right-icon>
               <i-lucide-check class="size-4" />
             </template>
           </van-cell>
