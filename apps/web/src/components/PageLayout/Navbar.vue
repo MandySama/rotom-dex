@@ -22,7 +22,7 @@ const showMore = ref(false)
 
 const selectedScopes = ref([])
 const selectedFilters = ref([])
-const selectedSort = ref('')
+const selectedSort = ref()
 
 const onClickRight = () => {
   if (!slots.right && props.moreOptions.length) {
@@ -54,7 +54,7 @@ const onSelectMore = (item) => {
         : [...selectedFilters.value, item.value]
       break
     case 'sort':
-      selectedSort.value = selectedSort.value === item.value ? '' : item.value
+      selectedSort.value = selectedSort.value === item.value ? undefined : item.value
       break
   }
   showMore.value = false

@@ -73,9 +73,12 @@ const handleSearch = () => {
     ) {
       return false
     }
+    if (query && /^\d+$/.test(query) && !pokemon.nationalCode.includes(query)) {
+      return false
+    }
     if (
       query &&
-      Number(pokemon.nationalCode) !== Number(query) &&
+      !/^\d+$/.test(query) &&
       !pokemon.cName.includes(query) &&
       !pokemon.shuxing.join(' ').includes(query)
     ) {
