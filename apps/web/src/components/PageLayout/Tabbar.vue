@@ -1,17 +1,9 @@
 <script setup>
 import { tabRoutes } from '@/router'
-
-const activeTab = ref('')
-
-const route = useRoute()
-
-onMounted(() => {
-  activeTab.value = tabRoutes.find((item) => item.path === route.path).meta.name
-})
 </script>
 
 <template>
-  <van-tabbar v-model="activeTab">
+  <van-tabbar route>
     <van-tabbar-item
       v-for="route in tabRoutes"
       :key="route.meta.name"

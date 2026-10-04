@@ -47,6 +47,12 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
   overscan: 6,
 })
 
+const scrollTop = ref(0)
+
+const onScroll = (event) => {
+  scrollTop.value = event.currentTarget.scrollTop
+}
+
 const getImage = (pokemon) => {
   const imageName = pokemon.picName || `a${pokemon.nationalCode}`
   return `/images/pokemon/${imageName}.png`
@@ -89,11 +95,13 @@ const handleSearch = () => {
   if (selectedSort.value !== undefined) {
     searchResults.value.sort((a, b) => getSortValue(b) - getSortValue(a))
   }
+  scrollTop.value = 0
   scrollTo(0)
 }
 
 const onClickLeft = () => {
   searchResults.value = searchResults.value.reverse()
+  scrollTop.value = 0
   scrollTo(0)
 }
 
@@ -107,6 +115,10 @@ const onSelectMore = ({ scopes, filters, sort }) => {
 onMounted(async () => {
   pokemonList.value = await request.get('/pokemon')
   searchResults.value = pokemonList.value
+})
+
+onActivated(() => {
+  containerProps.ref.value.scrollTop = scrollTop.value
 })
 </script>
 
@@ -126,6 +138,7 @@ onMounted(async () => {
     ></van-search>
     <div
       v-bind="containerProps"
+      @scroll="onScroll"
       class="h-[calc(100dvh-148px)] scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
     >
       <div v-bind="wrapperProps" class="flex flex-col gap-y-1.5">
