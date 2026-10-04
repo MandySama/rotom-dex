@@ -34,10 +34,11 @@ const moreOptions = [
   { text: '种族值排序', type: 'sort', value: -1 },
 ]
 
-const keyword = ref('')
 const selectedScopes = ref([])
 const selectedFilters = ref([])
 const selectedSort = ref()
+
+const keyword = ref('')
 
 const pokemonList = ref([])
 const searchResults = ref([])
