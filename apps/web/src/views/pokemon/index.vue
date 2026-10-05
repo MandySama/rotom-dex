@@ -67,7 +67,7 @@ const handleSearch = () => {
     if (
       query &&
       !/^\d+$/.test(query) &&
-      !pokemon.cName.includes(query) &&
+      !pokemon.cName.toLowerCase().includes(query) &&
       !pokemon.shuxing.join(' ').includes(query)
     ) {
       return false
@@ -144,10 +144,10 @@ onActivated(() => {
         <div
           v-for="{ data: pokemon, index } in list"
           :key="index"
-          class="border-border bg-background flex h-24 cursor-pointer items-center gap-2 rounded-md border pl-1"
+          class="border-border bg-background flex h-24 cursor-pointer items-center gap-2.5 rounded-md border pl-1"
         >
           <van-image class="size-22" :src="getImage(pokemon)"></van-image>
-          <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-[18px]">
+          <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-4.5">
             <div class="flex gap-x-2">
               <span>编号:</span>
               <span>NO.{{ pokemon.nationalCode }}</span>

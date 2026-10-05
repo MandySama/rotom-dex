@@ -34,18 +34,37 @@ const itemList = ref([])
 const searchResults = ref([])
 
 const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchResults, {
-  itemHeight: 102,
+  itemHeight: 78,
   overscan: 6,
 })
 
 const scrollTop = ref(0)
 
+const handleSearch = () => {
+  const query = keyword.value.trim().replace(/\s+/, ' ')
+  searchResults.value = itemList.value.filter((item) => {
+    if (selectedFilters.value.length && !selectedFilters.value.includes(item.type)) return false
+    if (query && !item.cname.includes(query) && !item.ename.includes(query)) return false
+    return true
+  })
+  scrollTo(0)
+}
+
+const onSelectMore = ({ filters }) => {
+  selectedFilters.value = filters
+  handleSearch()
+}
+
 const onScroll = (event) => {
   scrollTop.value = event.currentTarget.scrollTop
 }
 
+const getImage = (item) => {
+  return item.img ? `/images/item/${item.img}.png` : ''
+}
+
 onMounted(async () => {
-  itemList.value = await request.get('/pokemon')
+  itemList.value = await request.get('/item')
   searchResults.value = [...itemList.value]
 })
 
@@ -55,12 +74,17 @@ onActivated(() => {
 </script>
 
 <template>
-  <page-layout :navbar-left="false" :navbar-more-options="moreOptions">
+  <page-layout
+    :navbar-left="false"
+    :navbar-more-options="moreOptions"
+    @select-navbar-more="onSelectMore"
+  >
     <van-search
       v-model="keyword"
       placeholder="输入道具名称/英文名称"
       :clearable="false"
       left-icon=""
+      @update:model-value="handleSearch"
     ></van-search>
     <div
       v-bind="containerProps"
@@ -71,8 +95,18 @@ onActivated(() => {
         <div
           v-for="{ data: item, index } in list"
           :key="index"
-          class="border-border bg-background flex h-18 cursor-pointer items-center gap-2 rounded-md border pl-1"
-        ></div>
+          class="border-border bg-background text-foreground flex h-18 cursor-pointer items-center justify-between rounded-md border px-2.5 text-[13px] leading-4.5"
+        >
+          <div class="flex items-center gap-2">
+            <van-image v-if="item.img" class="size-11" :src="getImage(item)"></van-image>
+            <div class="flex flex-col gap-y-0.5">
+              <div>{{ item.cname }}</div>
+              <div>{{ item.ename }}</div>
+              <div>{{ item.jname }}</div>
+            </div>
+          </div>
+          <div>{{ item.type }}</div>
+        </div>
       </div>
     </div>
   </page-layout>
