@@ -60,7 +60,7 @@ const onScroll = (event) => {
 }
 
 const getImage = (item) => {
-  return item.img ? `/images/item/${item.img}.png` : ''
+  return item.img ? `/images/item/${item.img}.png` : '/images/item/unknown.png'
 }
 
 onMounted(async () => {
@@ -98,7 +98,7 @@ onActivated(() => {
           class="border-border bg-background text-foreground flex h-18 cursor-pointer items-center justify-between rounded-md border px-2.5 text-[13px] leading-4.5"
         >
           <div class="flex items-center gap-2">
-            <van-image v-if="item.img" class="size-11" :src="getImage(item)"></van-image>
+            <van-image class="size-11" :src="getImage(item)"></van-image>
             <div class="flex flex-col gap-y-0.5">
               <div>{{ item.cname }}</div>
               <div>{{ item.ename }}</div>
