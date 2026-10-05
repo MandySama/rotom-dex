@@ -50,6 +50,8 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
 
 const scrollTop = ref(0)
 
+const shiny = ref(false)
+
 const handleSearch = () => {
   const query = keyword.value.trim().replace(/\s+/, ' ')
   searchResults.value = pokemonList.value.filter((pokemon) => {
@@ -98,7 +100,8 @@ const onScroll = (event) => {
 
 const getImage = (pokemon) => {
   const imageName = pokemon.picName || `a${pokemon.nationalCode}`
-  return `/images/pokemon/${imageName}.png`
+  const dirName = shiny.value && pokemon.shiny !== false ? 'pokemon-shiny' : 'pokemon'
+  return `/images/${dirName}/${imageName}.png`
 }
 
 const getSortText = () => {
@@ -146,7 +149,12 @@ onActivated(() => {
           :key="index"
           class="border-border bg-background flex h-24 cursor-pointer items-center gap-2.5 rounded-md border pl-1"
         >
-          <van-image class="size-22" :src="getImage(pokemon)"></van-image>
+          <van-image
+            class="size-22"
+            :src="getImage(pokemon)"
+            @click.stop="shiny = !shiny"
+            @error="pokemon.shiny = false"
+          ></van-image>
           <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-4.5">
             <div class="flex gap-x-2">
               <span>编号:</span>
