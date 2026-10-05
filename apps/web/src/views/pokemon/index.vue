@@ -54,6 +54,7 @@ const shiny = ref(false)
 
 const handleSearch = () => {
   const query = keyword.value.trim().replace(/\s+/, ' ').toLowerCase()
+  const types = query.split(' ')
   searchResults.value = pokemonList.value.filter((pokemon) => {
     if (selectedScopes.value.length && !selectedScopes.value.includes(pokemon.sidai)) return false
     if (
@@ -70,7 +71,9 @@ const handleSearch = () => {
       query &&
       !/^\d+$/.test(query) &&
       !pokemon.cName.toLowerCase().includes(query) &&
-      !pokemon.shuxing.join(' ').includes(query)
+      !(types.length === 2 && types[0] === types[1]
+        ? pokemon.shuxing[0] === types[0] && !pokemon.shuxing[1]
+        : pokemon.shuxing.join(' ').includes(query))
     ) {
       return false
     }
