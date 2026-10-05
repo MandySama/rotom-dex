@@ -53,7 +53,7 @@ const scrollTop = ref(0)
 const shiny = ref(false)
 
 const handleSearch = () => {
-  const query = keyword.value.trim().replace(/\s+/, ' ')
+  const query = keyword.value.trim().replace(/\s+/, ' ').toLowerCase()
   searchResults.value = pokemonList.value.filter((pokemon) => {
     if (selectedScopes.value.length && !selectedScopes.value.includes(pokemon.sidai)) return false
     if (

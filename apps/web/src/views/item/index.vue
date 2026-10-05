@@ -8,7 +8,6 @@ const moreOptions = [
   { text: '进化道具', type: 'filter', value: '进化道具' },
   { text: '回复道具', type: 'filter', value: '回复道具' },
   { text: '携带道具', type: 'filter', value: '携带道具' },
-  { text: '携带道具', type: 'filter', value: '携带道具' },
   { text: '战斗道具', type: 'filter', value: '战斗道具' },
   { text: '一般道具', type: 'filter', value: '一般道具' },
   { text: '技能机', type: 'filter', value: '技能机' },
@@ -41,10 +40,16 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
 const scrollTop = ref(0)
 
 const handleSearch = () => {
-  const query = keyword.value.trim().replace(/\s+/, ' ')
+  const query = keyword.value.trim().replace(/\s+/, ' ').toLowerCase()
   searchResults.value = itemList.value.filter((item) => {
     if (selectedFilters.value.length && !selectedFilters.value.includes(item.type)) return false
-    if (query && !item.cname.includes(query) && !item.ename.includes(query)) return false
+    if (
+      query &&
+      !item.cname.normalize('NFKC').toLowerCase().includes(query) &&
+      !item.ename.toLowerCase().includes(query)
+    ) {
+      return false
+    }
     return true
   })
   scrollTo(0)
@@ -60,7 +65,7 @@ const onScroll = (event) => {
 }
 
 const getImage = (item) => {
-  return item.img ? `/images/item/${item.img}.png` : '/images/item/unknown.png'
+  return item.img && !item.error ? `/images/item/${item.img}.png` : '/images/item/unknown.png'
 }
 
 onMounted(async () => {
@@ -98,7 +103,7 @@ onActivated(() => {
           class="border-border bg-background text-foreground flex h-18 cursor-pointer items-center justify-between rounded-md border px-2.5 text-[13px] leading-4.5"
         >
           <div class="flex items-center gap-2">
-            <van-image class="size-11" :src="getImage(item)"></van-image>
+            <van-image class="size-11" :src="getImage(item)" @error="item.error = true"></van-image>
             <div class="flex flex-col gap-y-0.5">
               <div>{{ item.cname }}</div>
               <div>{{ item.ename }}</div>
