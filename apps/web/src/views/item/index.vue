@@ -138,7 +138,8 @@ onActivated(() => {
           v-for="{ data: item, index } in list"
           :ref="(component) => setItemRef(item, component)"
           :key="index"
-          class="bg-background cursor-pointer overflow-hidden rounded-md shadow-[inset_0_0_0_1px_var(--border)]"
+          class="bg-background cursor-pointer rounded-md shadow-[inset_0_0_0_1px_var(--border)]"
+          :class="{ 'no-jname': !item.jname }"
           :name="getItemKey(item)"
           :border="false"
           :is-link="false"
@@ -156,7 +157,7 @@ onActivated(() => {
                 <div class="flex flex-col gap-y-0.5">
                   <div>{{ item.cname }}</div>
                   <div>{{ item.ename }}</div>
-                  <div>{{ item.jname }}</div>
+                  <div v-if="item.jname">{{ item.jname }}</div>
                 </div>
               </div>
               <div>{{ item.type }}</div>
@@ -187,6 +188,12 @@ onActivated(() => {
 
 <style scoped lang="scss">
 .van-collapse-item {
+  &.no-jname {
+    :deep(.van-collapse-item__wrapper) {
+      margin-top: -10px;
+    }
+  }
+
   :deep(.van-cell),
   :deep(.van-collapse-item__content) {
     padding: 0;
