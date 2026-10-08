@@ -41,7 +41,7 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
   itemHeight: (index) => {
     const item = searchResults.value[index]
     const key = getItemKey(item)
-    return activeItem.value === key ? itemHeights.get(key) + 6 : 78
+    return (itemHeights.get(key) ?? 72) + 6
   },
   overscan: 8,
 })
@@ -49,6 +49,7 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
 const scrollTop = ref(0)
 
 const handleSearch = () => {
+  activeItem.value = ''
   const query = keyword.value.trim().replace(/\s+/, ' ').toLowerCase()
   searchResults.value = itemList.value.filter((item) => {
     if (selectedFilters.value.length && !selectedFilters.value.includes(item.type)) return false
@@ -128,6 +129,7 @@ onActivated(() => {
       <van-collapse
         v-bind="wrapperProps"
         v-model="activeItem"
+        :key="JSON.stringify([keyword, selectedFilters])"
         class="flex flex-col gap-y-1.5"
         accordion
         :border="false"
