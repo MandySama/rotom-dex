@@ -4,6 +4,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  showRight: {
+    type: Boolean,
+    default: true,
+  },
   moreOptions: {
     type: Array,
     default: () => [],
@@ -71,7 +75,7 @@ const onSelectMore = (item) => {
     <template v-if="showLeft" #left>
       <i-lucide-arrow-up-down class="size-5" />
     </template>
-    <template #right>
+    <template v-if="showRight" #right>
       <slot name="right">
         <i-lucide-ellipsis class="size-5" />
       </slot>

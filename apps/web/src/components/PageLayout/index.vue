@@ -11,6 +11,10 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  navbarRight: {
+    type: Boolean,
+    default: true,
+  },
   navbarMoreOptions: {
     type: Array,
     default: () => [],
@@ -25,6 +29,7 @@ defineEmits(['click-navbar-left', 'select-navbar-more'])
     <navbar
       v-if="navbar"
       :show-left="navbarLeft"
+      :show-right="navbarRight"
       :more-options="navbarMoreOptions"
       @click-left="$emit('click-navbar-left')"
       @select-more="$emit('select-navbar-more', $event)"
