@@ -139,7 +139,6 @@ onActivated(() => {
           :ref="(component) => setItemRef(item, component)"
           :key="index"
           class="bg-background cursor-pointer rounded-md shadow-[inset_0_0_0_1px_var(--border)]"
-          :class="{ 'no-jname': !item.jname }"
           :name="getItemKey(item)"
           :border="false"
           :is-link="false"
@@ -188,12 +187,6 @@ onActivated(() => {
 
 <style scoped lang="scss">
 .van-collapse-item {
-  &.no-jname {
-    :deep(.van-collapse-item__wrapper) {
-      margin-top: -10px;
-    }
-  }
-
   :deep(.van-cell),
   :deep(.van-collapse-item__content) {
     padding: 0;
