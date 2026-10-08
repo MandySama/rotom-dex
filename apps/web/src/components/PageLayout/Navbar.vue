@@ -22,7 +22,7 @@ const showMore = ref(false)
 
 const selectedScopes = ref([])
 const selectedFilters = ref([])
-const selectedSort = ref()
+const selectedSort = ref(undefined)
 
 const onClickRight = () => {
   if (!slots.right && props.moreOptions.length) {

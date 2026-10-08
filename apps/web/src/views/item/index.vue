@@ -32,9 +32,18 @@ const keyword = ref('')
 const itemList = ref([])
 const searchResults = ref([])
 
+const activeItem = ref('')
+
+const observedItems = new Map()
+const itemHeights = reactive(new Map())
+
 const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchResults, {
-  itemHeight: 78,
-  overscan: 6,
+  itemHeight: (index) => {
+    const item = searchResults.value[index]
+    const key = getItemKey(item)
+    return activeItem.value === key ? itemHeights.get(key) + 6 : 78
+  },
+  overscan: 8,
 })
 
 const scrollTop = ref(0)
@@ -63,6 +72,26 @@ const onSelectMore = ({ filters }) => {
 const onScroll = (event) => {
   scrollTop.value = event.currentTarget.scrollTop
 }
+
+const setItemRef = (item, component) => {
+  const key = getItemKey(item)
+  const el = component?.$el
+  const previous = observedItems.get(key)
+  if (previous?.el === el) return
+  previous?.observer.disconnect()
+  observedItems.delete(key)
+  if (!el) return
+  const setItemHeight = () => {
+    const height = el.getBoundingClientRect().height
+    if (height > 0) itemHeights.set(key, height)
+  }
+  const observer = new ResizeObserver(setItemHeight)
+  observer.observe(el)
+  observedItems.set(key, { el, observer })
+  setItemHeight()
+}
+
+const getItemKey = (item) => `${item?.id}:${item?.cname}`
 
 const getImage = (item) => {
   return item.img && !item.error ? `/images/item/${item.img}.png` : '/images/item/unknown.png'
@@ -94,27 +123,72 @@ onActivated(() => {
     <div
       v-bind="containerProps"
       @scroll="onScroll"
-      class="h-[calc(100dvh-148px)] scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
+      class="h-[calc(100dvh-148px)] scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif] [overflow-anchor:none]"
     >
-      <div v-bind="wrapperProps" class="flex flex-col gap-y-1.5">
-        <div
+      <van-collapse
+        v-bind="wrapperProps"
+        v-model="activeItem"
+        class="flex flex-col gap-y-1.5"
+        accordion
+        :border="false"
+      >
+        <van-collapse-item
           v-for="{ data: item, index } in list"
+          :ref="(component) => setItemRef(item, component)"
           :key="index"
-          class="border-border bg-background text-foreground flex h-18 cursor-pointer items-center justify-between rounded-md border px-2.5 text-[13px] leading-4.5"
+          class="bg-background cursor-pointer overflow-hidden rounded-md shadow-[inset_0_0_0_1px_var(--border)]"
+          :name="getItemKey(item)"
+          :border="false"
+          :is-link="false"
         >
-          <div class="flex items-center gap-2">
-            <van-image class="size-11" :src="getImage(item)" @error="item.error = true"></van-image>
-            <div class="flex flex-col gap-y-0.5">
-              <div>{{ item.cname }}</div>
-              <div>{{ item.ename }}</div>
-              <div>{{ item.jname }}</div>
+          <template #title>
+            <div
+              class="text-foreground flex h-18 items-center justify-between px-2.5 text-[13px] leading-4.5"
+            >
+              <div class="flex items-center gap-2.5">
+                <van-image
+                  class="size-11"
+                  :src="getImage(item)"
+                  @error="item.error = true"
+                ></van-image>
+                <div class="flex flex-col gap-y-0.5">
+                  <div>{{ item.cname }}</div>
+                  <div>{{ item.ename }}</div>
+                  <div>{{ item.jname }}</div>
+                </div>
+              </div>
+              <div>{{ item.type }}</div>
+            </div>
+          </template>
+          <div
+            class="mb-2 flex flex-col gap-0.5 pr-2.5 pl-16 text-[13px] leading-4.5"
+            @click.stop="activeItem = ''"
+          >
+            <div class="flex gap-x-2">
+              <span class="text-primary">价格:</span>
+              <span class="text-foreground">￥{{ item.price }}</span>
+            </div>
+            <div class="flex gap-x-2">
+              <span class="text-primary shrink-0">说明:</span>
+              <span class="text-foreground">{{ item.explain }}</span>
+            </div>
+            <div v-if="item.ceffect" class="flex gap-x-2">
+              <span class="text-primary shrink-0">效果:</span>
+              <span class="text-foreground whitespace-pre-line">{{ item.ceffect }}</span>
             </div>
           </div>
-          <div>{{ item.type }}</div>
-        </div>
-      </div>
+        </van-collapse-item>
+      </van-collapse>
     </div>
   </page-layout>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.van-collapse-item {
+  :deep(.van-cell),
+  :deep(.van-collapse-item__content) {
+    padding: 0;
+    background: transparent;
+  }
+}
+</style>

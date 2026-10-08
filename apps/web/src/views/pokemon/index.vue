@@ -36,7 +36,7 @@ const moreOptions = [
 
 const selectedScopes = ref([])
 const selectedFilters = ref([])
-const selectedSort = ref()
+const selectedSort = ref(undefined)
 
 const keyword = ref('')
 
@@ -150,7 +150,7 @@ onActivated(() => {
         <div
           v-for="{ data: pokemon, index } in list"
           :key="index"
-          class="border-border bg-background flex h-24 cursor-pointer items-center gap-2.5 rounded-md border pl-1"
+          class="border-border bg-background text-foreground flex h-24 cursor-pointer items-center gap-2.5 overflow-hidden rounded-md border pl-1 text-[13px] leading-4.5"
         >
           <van-image
             class="size-22"
@@ -158,7 +158,7 @@ onActivated(() => {
             @click.stop="shiny = !shiny"
             @error="pokemon.shiny = false"
           ></van-image>
-          <div class="text-foreground flex flex-col gap-y-0.5 text-[13px] leading-4.5">
+          <div class="flex flex-col gap-y-0.5">
             <div class="flex gap-x-2">
               <span>编号:</span>
               <span>NO.{{ pokemon.nationalCode }}</span>
