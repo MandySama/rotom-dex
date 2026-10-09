@@ -1,5 +1,11 @@
 <script setup lang="jsx">
-const toolList = [
+import { useDraggable } from 'vue-draggable-plus'
+import { useStorage } from '@vueuse/core'
+import { onMounted } from 'vue'
+
+const sortedToolList = useStorage('toolList', [])
+
+const toolList = ref([
   {
     icon: () => <i-svg-overdose />,
     text: '特性列表',
@@ -144,7 +150,23 @@ const toolList = [
     icon: () => <i-svg-player />,
     text: '人物列表',
   },
-]
+])
+
+const gridRef = ref(null)
+
+useDraggable(gridRef, toolList, {
+  animation: 180,
+  delay: 300,
+  delayOnTouchOnly: true,
+  onEnd() {
+    sortedToolList.value = toolList.value.map((tool) => tool.text)
+  },
+})
+
+onMounted(() => {
+  const sortedMap = new Map(sortedToolList.value.map((text, index) => [text, index]))
+  toolList.value.sort((a, b) => sortedMap.get(a.text) - sortedMap.get(b.text))
+})
 </script>
 
 <template>
@@ -155,11 +177,17 @@ const toolList = [
       left-icon=""
     ></van-search>
     <van-grid
+      ref="gridRef"
       class="grid! max-h-[calc(100dvh-148px)] scrollbar-none grid-cols-4 gap-1 overflow-y-auto px-2 pb-1.5"
       :border="false"
       clickable
     >
-      <van-grid-item v-for="tool in toolList" :key="tool.text" class="h-21" :class="tool.class">
+      <van-grid-item
+        v-for="tool in toolList"
+        :key="tool.text"
+        class="h-21 select-none"
+        :class="tool.class"
+      >
         <template #icon>
           <component class="size-6" :is="tool.icon"></component>
         </template>

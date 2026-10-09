@@ -34,31 +34,31 @@ const onClickRight = () => {
   }
 }
 
-const isSelectedOption = (item) => {
-  switch (item.type) {
+const isSelectedOption = (option) => {
+  switch (option.type) {
     case 'scope':
-      return selectedScopes.value.includes(item.value)
+      return selectedScopes.value.includes(option.value)
     case 'filter':
-      return selectedFilters.value.includes(item.value)
+      return selectedFilters.value.includes(option.value)
     case 'sort':
-      return selectedSort.value === item.value
+      return selectedSort.value === option.value
   }
 }
 
-const onSelectMore = (item) => {
-  switch (item.type) {
+const onSelectMore = (option) => {
+  switch (option.type) {
     case 'scope':
-      selectedScopes.value = selectedScopes.value.includes(item.value)
-        ? selectedScopes.value.filter((value) => value !== item.value)
-        : [...selectedScopes.value, item.value]
+      selectedScopes.value = selectedScopes.value.includes(option.value)
+        ? selectedScopes.value.filter((value) => value !== option.value)
+        : [...selectedScopes.value, option.value]
       break
     case 'filter':
-      selectedFilters.value = selectedFilters.value.includes(item.value)
-        ? selectedFilters.value.filter((value) => value !== item.value)
-        : [...selectedFilters.value, item.value]
+      selectedFilters.value = selectedFilters.value.includes(option.value)
+        ? selectedFilters.value.filter((value) => value !== option.value)
+        : [...selectedFilters.value, option.value]
       break
     case 'sort':
-      selectedSort.value = selectedSort.value === item.value ? undefined : item.value
+      selectedSort.value = selectedSort.value === option.value ? undefined : option.value
       break
   }
   showMore.value = false
