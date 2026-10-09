@@ -4,7 +4,7 @@ export const tabRoutes = [
   {
     path: '/pokemon',
     component: () => import('@/views/pokemon/index.vue'),
-    meta: { title: '全国图鉴', name: '图鉴', icon: () => <i-svg-pokeball /> },
+    meta: { title: '全国图鉴', name: '图鉴', icon: () => <i-svg-ball /> },
   },
   {
     path: '/item',
@@ -19,7 +19,7 @@ export const tabRoutes = [
   {
     path: '/move',
     component: () => import('@/views/move/index.vue'),
-    meta: { title: '招式列表', name: '招式', icon: () => <i-svg-power /> },
+    meta: { title: '招式列表', name: '招式', icon: () => <i-svg-fist /> },
   },
   {
     path: '/about',
