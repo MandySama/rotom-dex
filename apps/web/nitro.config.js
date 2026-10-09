@@ -1,6 +1,6 @@
 import { defineConfig } from 'nitro'
 
-const prerenderRoutes = ['/pokemon', '/item']
+const prerenderRoutes = ['/pokemon', '/item', '/move']
 
 export default defineConfig({
   serverDir: './src/mock',

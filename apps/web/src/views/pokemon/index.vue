@@ -129,7 +129,6 @@ onActivated(() => {
 
 <template>
   <page-layout
-    class="pokemon-page"
     :navbar-more-options="moreOptions"
     @click-navbar-left="onClickLeft"
     @select-navbar-more="onSelectMore"
