@@ -48,6 +48,102 @@ const toolList = [
     icon: () => <i-svg-charm />,
     text: '觉醒计算器',
   },
+  {
+    icon: () => <i-svg-caterpie />,
+    text: '宝可梦合体',
+  },
+  {
+    icon: () => <i-svg-phone />,
+    text: '图片壁纸',
+  },
+  {
+    icon: () => <i-svg-camera />,
+    text: '动画视频',
+  },
+  {
+    icon: () => <i-svg-restore--3 />,
+    text: '异常状态',
+    class: 'col-start-1',
+  },
+  {
+    icon: () => <i-svg-tornado />,
+    text: '天气场地',
+  },
+  {
+    icon: () => <i-svg-compass />,
+    text: '使用率排名',
+  },
+  {
+    icon: () => <i-svg-revive />,
+    text: '队伍租用',
+  },
+  {
+    icon: () => <i-svg-up />,
+    text: '宝可梦对比',
+  },
+  {
+    icon: () => <i-svg-box />,
+    text: '多技能检索',
+  },
+  {
+    icon: () => <i-svg-pidgey />,
+    text: '宝可梦肉鸽',
+  },
+  {
+    icon: () => <i-svg-candy />,
+    text: '对战平台',
+  },
+  {
+    icon: () => <i-svg-star />,
+    text: '我的收藏',
+  },
+  {
+    icon: () => <i-svg-egg--2 />,
+    text: '相关术语',
+  },
+  {
+    icon: () => <i-svg-courage />,
+    text: '图鉴收集',
+    class: 'col-start-4',
+  },
+  {
+    icon: () => <i-svg-friendship />,
+    text: '最新咨询',
+  },
+  {
+    icon: () => <i-svg-psyduck />,
+    text: '你知道吗',
+  },
+  {
+    icon: () => <i-svg-palm />,
+    text: '刷闪计数器',
+    class: 'col-start-4',
+  },
+  {
+    icon: () => <i-svg-map />,
+    text: '地区地图',
+  },
+  {
+    icon: () => <i-svg-pikachu />,
+    text: '猜猜宝可梦',
+    class: 'col-start-4',
+  },
+  {
+    icon: () => <i-svg-badge--2 />,
+    text: '徽章列表',
+  },
+  {
+    icon: () => <i-svg-location />,
+    text: '地点列表',
+  },
+  {
+    icon: () => <i-svg-champion />,
+    text: '游戏列表',
+  },
+  {
+    icon: () => <i-svg-player />,
+    text: '人物列表',
+  },
 ]
 </script>
 
@@ -63,7 +159,7 @@ const toolList = [
       :border="false"
       clickable
     >
-      <van-grid-item v-for="tool in toolList" :key="tool.text" class="h-21">
+      <van-grid-item v-for="tool in toolList" :key="tool.text" class="h-21" :class="tool.class">
         <template #icon>
           <component class="size-6" :is="tool.icon"></component>
         </template>
