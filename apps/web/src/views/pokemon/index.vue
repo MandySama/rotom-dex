@@ -149,7 +149,7 @@ onActivated(() => {
         <div
           v-for="{ data: pokemon, index } in list"
           :key="index"
-          class="border-border bg-background text-foreground flex h-24 cursor-pointer items-center gap-2.5 overflow-hidden rounded-md border pl-1 text-[13px] leading-4.5"
+          class="border-border bg-background text-foreground flex h-24 cursor-pointer items-center gap-2.5 rounded-md border pl-1 text-[13px] leading-4.5"
         >
           <van-image
             class="size-22"

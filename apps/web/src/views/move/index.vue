@@ -127,7 +127,7 @@ onMounted(async () => {
         <div
           v-for="{ data: move, index } in list"
           :key="index"
-          class="border-border bg-background text-foreground flex h-15 cursor-pointer items-center gap-2.5 overflow-hidden rounded-md border pr-1 pl-2.5 text-sm"
+          class="border-border bg-background text-foreground flex h-15 cursor-pointer items-center gap-2.5 rounded-md border pr-1 pl-2.5 text-sm"
         >
           <span class="w-10 text-center">{{ move.id }}</span>
           <div class="flex flex-1 flex-col items-center gap-y-1">
