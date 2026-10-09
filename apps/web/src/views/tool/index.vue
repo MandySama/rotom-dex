@@ -164,7 +164,7 @@ const toolList = [
           <component class="size-6" :is="tool.icon"></component>
         </template>
         <template #text>
-          <span class="text-foreground text-[10px] leading-[12px] opacity-75">{{ tool.text }}</span>
+          <span class="text-foreground text-[10px] leading-3 opacity-75">{{ tool.text }}</span>
         </template>
       </van-grid-item>
     </van-grid>
