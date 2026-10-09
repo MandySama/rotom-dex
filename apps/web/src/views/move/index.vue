@@ -127,10 +127,18 @@ onMounted(async () => {
         <div
           v-for="{ data: move, index } in list"
           :key="index"
-          class="border-border bg-background text-foreground flex h-15 cursor-pointer items-center gap-2.5 overflow-hidden rounded-md border pr-1 pl-2.5 text-[13px] leading-4.5"
+          class="border-border bg-background text-foreground flex h-15 cursor-pointer items-center gap-2.5 overflow-hidden rounded-md border pr-1 pl-2.5 text-sm"
         >
           <span class="w-10 text-center">{{ move.id }}</span>
-          <div class="flex-1"></div>
+          <div class="flex flex-1 flex-col items-center gap-y-1">
+            <span>{{ move.cname }}</span>
+            <div class="flex justify-center gap-x-2 text-[10px] leading-3 opacity-60">
+              <span>威力:{{ move.power }}</span>
+              <span>命中:{{ move.hit }}</span>
+              <span>PP:{{ move.PP }}</span>
+              <span>优先:{{ move.priority }}</span>
+            </div>
+          </div>
           <div class="flex gap-x-1 text-[11px] leading-3.5 text-white">
             <div
               class="flex h-5 w-13 items-center justify-center rounded-sm"
