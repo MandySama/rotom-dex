@@ -95,9 +95,18 @@ const { containerProps, wrapperProps, list, scrollTo } = useVirtualList(searchRe
 
 const scrollTop = ref(0)
 
+const handleSearch = () => {}
+
 const onClickLeft = () => {
   searchResults.value = searchResults.value.reverse()
   scrollTo(0)
+}
+
+const onSelectMore = ({ scopes, filters, sort }) => {
+  selectedScopes.value = scopes
+  selectedFilters.value = filters
+  selectedSort.value = sort
+  handleSearch()
 }
 
 const onScroll = (event) => {
@@ -108,15 +117,24 @@ onMounted(async () => {
   moveList.value = await request.get('/move')
   searchResults.value = [...moveList.value]
 })
+
+onActivated(() => {
+  containerProps.ref.value.scrollTop = scrollTop.value
+})
 </script>
 
 <template>
-  <page-layout :navbar-more-options="moreOptions" @click-navbar-left="onClickLeft">
+  <page-layout
+    :navbar-more-options="moreOptions"
+    @click-navbar-left="onClickLeft"
+    @select-navbar-more="onSelectMore"
+  >
     <van-search
       v-model="keyword"
       placeholder="输入招式名称/属性"
       :clearable="false"
       left-icon=""
+      @update:model-value="handleSearch"
     ></van-search>
     <div
       v-bind="containerProps"
