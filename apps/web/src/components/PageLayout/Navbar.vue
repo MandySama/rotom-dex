@@ -92,6 +92,7 @@ const onSelectMore = (option) => {
             :key="option.text"
             :class="isSelectedOption(option) && 'text-primary!'"
             :title="option.text"
+            :border="false"
             clickable
             @click="onSelectMore(option)"
           >

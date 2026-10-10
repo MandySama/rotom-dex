@@ -116,6 +116,7 @@ onActivated(() => {
   >
     <van-search
       v-model="keyword"
+      shape="round"
       placeholder="输入道具名称/英文名称"
       :clearable="false"
       left-icon=""

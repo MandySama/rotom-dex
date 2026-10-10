@@ -135,6 +135,7 @@ onActivated(() => {
   >
     <van-search
       v-model="keyword"
+      shape="round"
       placeholder="输入全国编号/名称/属性(支持双属性)"
       :clearable="false"
       left-icon=""

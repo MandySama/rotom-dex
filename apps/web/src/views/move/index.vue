@@ -148,6 +148,7 @@ onActivated(() => {
   >
     <van-search
       v-model="keyword"
+      shape="round"
       placeholder="输入招式名称/属性"
       :clearable="false"
       left-icon=""

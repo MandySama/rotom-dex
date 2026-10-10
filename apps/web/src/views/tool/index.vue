@@ -182,6 +182,7 @@ onMounted(() => {
 <template>
   <page-layout :navbar-left="false" :navbar-right="false">
     <van-search
+      shape="round"
       placeholder="输入名称搜索宝可梦、道具、招式、特性"
       :clearable="false"
       left-icon=""
