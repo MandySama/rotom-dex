@@ -30,13 +30,13 @@ const moreOptions = [
   { text: '优先度-5', type: 'filter', value: '优先度-5' },
   { text: '优先度-6', type: 'filter', value: '优先度-6' },
   { text: '优先度-7', type: 'filter', value: '优先度-7' },
-  { text: '啃咬类的招式', type: 'filter', value: '啃咬类招式' },
-  { text: '切割类的招式', type: 'filter', value: '切割类招式' },
-  { text: '波动波导招式', type: 'filter', value: '波动波导招式' },
-  { text: '连续相关招式', type: 'filter', value: '连续相关招式' },
   { text: '击中要害相关', type: 'filter', value: '击中要害相关' },
   { text: '必定击中要害', type: 'filter', value: '必定击中要害' },
   { text: '一击濒死招式', type: 'filter', value: '一击濒死招式' },
+  { text: '啃咬类招式', type: 'filter', value: '啃咬类招式' },
+  { text: '切割类招式', type: 'filter', value: '切割类招式' },
+  { text: '波动波导招式', type: 'filter', value: '波动波导招式' },
+  { text: '连续相关招式', type: 'filter', value: '连续相关招式' },
   { text: '陷入畏缩状态', type: 'filter', value: '陷入畏缩状态' },
   { text: '陷入混乱状态', type: 'filter', value: '陷入混乱状态' },
   { text: '陷入灼伤状态', type: 'filter', value: '陷入灼伤状态' },
@@ -139,7 +139,7 @@ onActivated(() => {
     <div
       v-bind="containerProps"
       @scroll="onScroll"
-      class="h-[calc(100dvh-148px)] scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
+      class="min-h-0 flex-1 scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
     >
       <div v-bind="wrapperProps" class="flex flex-col gap-y-1.5">
         <div

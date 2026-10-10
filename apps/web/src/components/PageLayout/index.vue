@@ -3,6 +3,10 @@ import Navbar from './Navbar.vue'
 import Tabbar from './Tabbar.vue'
 
 defineProps({
+  fillContent: {
+    type: Boolean,
+    default: false,
+  },
   navbar: {
     type: Boolean,
     default: true,
@@ -38,10 +42,10 @@ defineEmits(['click-navbar-left', 'select-navbar-more'])
         <slot name="navbar-right" />
       </template>
     </navbar>
-    <div class="bg-muted min-h-0 flex-1 overflow-y-auto pb-14">
+    <div class="bg-muted flex min-h-0 flex-1 flex-col">
       <slot></slot>
     </div>
-    <tabbar></tabbar>
+    <tabbar :fixed="false"></tabbar>
   </div>
 </template>
 
