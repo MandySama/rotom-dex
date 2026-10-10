@@ -97,12 +97,12 @@ const handleSearch = () => {
     }
     if (
       selectedFilters.value.length &&
-      !selectedFilters.value.includes(move.type) &&
-      !selectedFilters.value.some((filter) => {
-        if (filter === 'Z招式' && move.explain.includes(filter)) return true
-        if (/^[+-]?\d+$/.test(filter) && filter === move.priority) return true
-        return false
-      })
+      !selectedFilters.value.some(
+        (filter) =>
+          filter === move.type ||
+          (filter === 'Z招式' && move.explain.includes(filter)) ||
+          filter === move.priority,
+      )
     ) {
       return false
     }
