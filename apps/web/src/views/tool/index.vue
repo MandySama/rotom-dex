@@ -178,7 +178,7 @@ onMounted(() => {
     ></van-search>
     <van-grid
       ref="gridRef"
-      class="max-min-h-0 grid! flex-1 scrollbar-none grid-cols-4 gap-1 overflow-y-auto px-2 pb-1.5"
+      class="grid! flex-1 scrollbar-none grid-cols-4 gap-1 overflow-y-auto px-2 pb-1.5"
       :border="false"
       clickable
     >
