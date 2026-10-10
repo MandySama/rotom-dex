@@ -143,7 +143,7 @@ onActivated(() => {
     <div
       v-bind="containerProps"
       @scroll="onScroll"
-      class="min-h-0 flex-1 scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
+      class="flex-1 scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif]"
     >
       <div v-bind="wrapperProps" class="flex flex-col gap-y-1.5">
         <div

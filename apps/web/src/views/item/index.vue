@@ -124,7 +124,7 @@ onActivated(() => {
     <div
       v-bind="containerProps"
       @scroll="onScroll"
-      class="min-h-0 flex-1 scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif] [overflow-anchor:none]"
+      class="flex-1 scrollbar-none overflow-y-auto px-2 font-['Noto_Sans_SC','Microsoft_YaHei',sans-serif] [overflow-anchor:none]"
     >
       <van-collapse
         v-bind="wrapperProps"
