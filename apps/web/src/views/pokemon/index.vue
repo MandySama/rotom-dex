@@ -52,6 +52,17 @@ const scrollTop = ref(0)
 
 const shiny = ref(false)
 
+const onClickLeft = () => {
+  searchResults.value = searchResults.value.reverse()
+  scrollTo(0)
+}
+
+const getSortValue = (pokemon) => {
+  return selectedSort.value === -1
+    ? pokemon.zhongzuzhi.reduce((sum, stat) => sum + stat, 0)
+    : pokemon.zhongzuzhi[selectedSort.value]
+}
+
 const handleSearch = () => {
   const query = keyword.value.trim().replace(/\s+/, ' ').toLowerCase()
   const types = query.split(' ')
@@ -85,11 +96,6 @@ const handleSearch = () => {
   scrollTo(0)
 }
 
-const onClickLeft = () => {
-  searchResults.value = searchResults.value.reverse()
-  scrollTo(0)
-}
-
 const onSelectMore = ({ scopes, filters, sort }) => {
   selectedScopes.value = scopes
   selectedFilters.value = filters
@@ -109,12 +115,6 @@ const getImage = (pokemon) => {
 
 const getSortText = () => {
   return moreOptions.find((option) => option.value === selectedSort.value).text.replace('排序', '')
-}
-
-const getSortValue = (pokemon) => {
-  return selectedSort.value === -1
-    ? pokemon.zhongzuzhi.reduce((sum, stat) => sum + stat, 0)
-    : pokemon.zhongzuzhi[selectedSort.value]
 }
 
 onMounted(async () => {
